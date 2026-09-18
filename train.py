@@ -52,19 +52,6 @@ if train_data.class_indices != expected_indices or val_data.class_indices != exp
         f"test={val_data.class_indices}."
     )
 
-# Calculate class weights to reduce the effect of class imbalance.
-class_counts = np.bincount(train_data.classes)
-total_samples = len(train_data.classes)
-num_classes = len(EMOTIONS)
-
-class_weights = {
-    class_id: total_samples / (num_classes * count)
-    for class_id, count in enumerate(class_counts)
-}
-
-print("Class weights:")
-for class_id, weight in class_weights.items():
-    print(f"  {EMOTIONS[class_id]}: {weight:.4f}")
 
 (RESULTS_DIR / "class_indices.json").write_text(
     json.dumps(train_data.class_indices, indent=2), encoding="utf-8"
@@ -80,8 +67,7 @@ history = model.fit(
     train_data,
     validation_data=val_data,
     epochs=EPOCHS,
-    callbacks=callbacks,
-    class_weight=class_weights
+    callbacks=callbacks
 )
 
 # Save training curves.
