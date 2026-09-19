@@ -1,6 +1,7 @@
 """CNN model definition for FER-2013 facial expression recognition."""
 
 from tensorflow.keras import layers, models
+import tensorflow as tf
 
 
 EMOTIONS = [
@@ -60,7 +61,10 @@ def build_model(input_shape=(48, 48, 1), num_classes=7):
 
     model.compile(
         optimizer="adam",
-        loss="categorical_crossentropy",
+        loss=tf.keras.losses.CategoricalFocalCrossentropy(
+            alpha=0.25,
+            gamma=2.0,
+        ),
         metrics=["accuracy"],
     )
 
