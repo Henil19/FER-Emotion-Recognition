@@ -53,6 +53,15 @@ if train_data.class_indices != expected_indices or val_data.class_indices != exp
         f"test={val_data.class_indices}."
     )
 
+targeted_class_weights = {
+    0: 1.00,  # Angry
+    1: 1.00,  # Disgust
+    2: 1.20,  # Fear
+    3: 1.00,  # Happy
+    4: 1.10,  # Neutral
+    5: 1.15,  # Sad
+    6: 1.00,  # Surprise
+}
 
 (RESULTS_DIR / "class_indices.json").write_text(
     json.dumps(train_data.class_indices, indent=2), encoding="utf-8"
@@ -68,7 +77,8 @@ history = model.fit(
     train_data,
     validation_data=val_data,
     epochs=EPOCHS,
-    callbacks=callbacks
+    callbacks=callbacks,
+    class_weight=targeted_class_weights,
 )
 
 # Save training curves.
