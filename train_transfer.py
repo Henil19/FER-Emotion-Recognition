@@ -15,7 +15,7 @@ from transfer_model import build_transfer_model, EMOTIONS
 
 
 SEED = 42
-IMG_SIZE = (48, 48)
+IMG_SIZE = (96, 96)
 BATCH_SIZE = 64
 EPOCHS = 40
 
@@ -91,7 +91,7 @@ if (
 
 
 model = build_transfer_model(
-    input_shape=(48, 48, 3),
+    input_shape=(96, 96, 3),
     num_classes=len(EMOTIONS),
 )
 
