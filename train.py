@@ -31,6 +31,7 @@ train_datagen = ImageDataGenerator(
     shear_range=0.15,
     zoom_range=0.15,
     horizontal_flip=True,
+    brightness_range=(0.8, 1.2),
 )
 val_datagen = ImageDataGenerator(rescale=1.0 / 255)
 
